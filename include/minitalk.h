@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 00:12:50 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/06/10 04:34:31 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/06/10 10:45:23 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,8 @@ void	ft_print(int bit_received, siginfo_t *info, void *vd);
 char	*ft_bfrjoin(char line, char *buffer);
 int		ft_atoi(const char *str);
 int		ft_strlen(const char *str);
+void	ft_manage_1(int bit_received, siginfo_t *info, void *vd);
+void	ft_manage_2(int bit_received, siginfo_t *info, void *vd);
+void	ft_bzero(void *ptr, size_t n);
 
 #endif

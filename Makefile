@@ -1,4 +1,4 @@
-CLIENT_SRCS             = ./src/client.c
+CLIENT_SRCS             = ./src/client.c ./src/client_utils.c
 CLIENT_OBJS             =  ${CLIENT_SRCS:.c=.o}
 NAME                    = client
 

@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:38:16 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/06/10 05:05:52 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/06/10 10:40:23 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,32 @@ void	ft_print(int bit_received, siginfo_t *info, void *vd)
 	kill(info->si_pid, SIGUSR1);
 }
 
+void	ft_manage_1(int bit_received, siginfo_t *info, void *vd)
+{
+	(void) bit_received;
+	ft_print(0, info, vd);
+}
+
+void	ft_manage_2(int bit_received, siginfo_t *info, void *vd)
+{
+	(void) bit_received;
+	ft_print(1, info, vd);
+}
+
 int	main(void)
 {
-	struct sigaction	s_sigaction;
+	struct sigaction	s_sigaction1;
+	struct sigaction	s_sigaction2;
 
 	ft_putstr_fd("Server PID: ", 1);
 	ft_putnbr_fd(getpid(), 1);
 	ft_putchar_fd('\n', 1);
-	s_sigaction.sa_sigaction = ft_print;
-	s_sigaction.sa_flags = SA_SIGINFO;
-	sigaction(SIGUSR1, &s_sigaction, NULL);
-	sigaction(SIGUSR2, &s_sigaction, NULL);
+	s_sigaction1.sa_sigaction = ft_manage_1;
+	s_sigaction1.sa_flags = SA_SIGINFO;	
+	s_sigaction2.sa_sigaction = ft_manage_2;
+	s_sigaction2.sa_flags = SA_SIGINFO;
+	sigaction(SIGUSR1, &s_sigaction1, NULL);
+	sigaction(SIGUSR2, &s_sigaction2, NULL);
 	while (1)
 	{}
 }

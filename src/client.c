@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:36:58 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/06/10 04:48:14 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/06/10 10:43:59 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ int	signal_received;
 
 int	main(int ac, char **av)
 {
-	struct sigaction	s_sigaction;
+	struct sigaction	ssigaction;
 	int					pid;
 	int					i;
-	
-	s_sigaction.sa_handler = &ft_receipt_acknowledgment;
-	sigaction(SIGUSR1, &s_sigaction, NULL);
+
+	ft_bzero(&ssigaction, sizeof(struct sigaction));
+	ssigaction.sa_handler = &ft_receipt_acknowledgment;
+	sigaction(SIGUSR1, &ssigaction, NULL);
 	write(1, "TEST\n", 5);
 	pid = ft_atoi(av[1]);
 	write(1, "TEST2\n", 6);
