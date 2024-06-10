@@ -6,7 +6,7 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:38:16 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/06/10 10:40:23 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:21:53 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,7 @@ void	ft_print(int bit_received, siginfo_t *info, void *vd)
 	bit++;
 	if (bit == 8)
 	{
-		ft_putchar_fd((char)c, 1);//result = ft_bfrjoin((char)c, result);
-		//if (c == 32)
-		// {
-		// 	ft_putstr_fd(result, 1);
-		// 	free(result);
-		// }
+		ft_putchar_fd((char)c, 1);
 		bit = 0;
 		c = 0;
 	}
