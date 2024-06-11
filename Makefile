@@ -3,12 +3,12 @@ CLIENT_OBJS             =  ${CLIENT_SRCS:.c=.o}
 NAME                    = client
 
 
-SERVER_SRCS             = ./src/server.c ./src/server_utils.c
+SERVER_SRCS             = ./src/server.c ./src/server_utils.c ./src/list_actions.c
 SERVER_OBJS             =  ${SERVER_SRCS:.c=.o}
 NAME_SERVER             = server
 
 
-all : ${NAME}
+all : ${NAME} ${NAME_SERVER}
 
 .c.o:
 	cc -Wall -Wextra -Werror -I ./include/ -c $< -o ${<:.c=.o}
@@ -27,4 +27,4 @@ fclean : clean
 
 re : fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re

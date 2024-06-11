@@ -6,19 +6,18 @@
 /*   By: hvecchio <hvecchio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:36:58 by hvecchio          #+#    #+#             */
-/*   Updated: 2024/06/10 15:24:06 by hvecchio         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:42:43 by hvecchio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int	signal_received;
+int	g_answer_from_server_received;
 
 int	main(int ac, char **av)
 {
 	struct sigaction	ssigaction;
 	int					pid;
-	int					i;
 
 	ft_bzero(&ssigaction, sizeof(struct sigaction));
 	ssigaction.sa_handler = &ft_receipt_acknowledgment;
@@ -26,27 +25,29 @@ int	main(int ac, char **av)
 	pid = ft_atoi(av[1]);
 	if (ac != 3 || pid <= 0)
 		return (0);
-	i = -1;
-	while (av[2][++i])
-		ft_send_byte(av[2][i], 0, pid);
+	while (*av[2])
+	{
+		ft_send_byte((unsigned char)*av[2], 0, pid);
+		av[2]++;
+	}
 	write(1, "Message sucessfully sent\n", 25);
-	ft_send_byte(0, 0, pid);
+	ft_send_byte((unsigned char)0, 0, pid);
 	return (0);
 }
 
 void	ft_send_bit(int bit, int pid)
 {
 	int		kill_failure;
-	
+
 	kill_failure = 0;
-	signal_received = 0;
+	g_answer_from_server_received = 0;
 	if (bit == 1)
 		kill_failure = kill(pid, SIGUSR2);
 	else
 		kill_failure = kill(pid, SIGUSR1);
 	if (kill_failure == -1)
 		exit(0);
-	while (!signal_received)
+	while (!g_answer_from_server_received)
 	{
 	}
 }
@@ -64,7 +65,8 @@ void	ft_send_byte(int c, int sent_bits, int pid)
 
 void	ft_receipt_acknowledgment(int bit)
 {
-	signal_received = 1 + bit * 0;
+	(void) bit;
+	g_answer_from_server_received = 1;
 }
 
 int	ft_atoi(const char *str)
